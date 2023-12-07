@@ -1,37 +1,46 @@
-import React, { useState } from 'react'
-
-
 interface Answer {
     id: number;
     text: string;
     color: string;
 }
 
-type QuestionType = {
+type Props = {
     id: number
-    text?: string;
-    answers?: Answer[];
+    question: string;
+    answers: Answer[];
+    onAnswer: (answer: Answer) => void;
 }
 
 
-const Question = ({ id }: QuestionType) => {
-    const [answer, setAnswer] = useState('')
+const Question = ({ question,answers, onAnswer }: Props) => {
 
-    let question: QuestionType = {
-        id: id,
-        text: "text"
-    };
+    // const question: any = {
+    //     id: id,
+    //     text: "Question 1",
+    //     answers: [{
+    //         id: 1, text: "Reponse 1", color: "jaune"
+    //     }, {
+    //         id: 2, text: "Reponse 2", color: "rouge"
+    //     }, {
+    //         id: 3, text: "Reponse 3", color: "bleu"
+    //     }, {
+    //         id: 4, text: "Reponse 4", color: "vert"
+    //     }]
+    // };
 
-    function sendAnswer() {
-        // socket.emit('sendAnswer', { pseudo, answer, gameId: game.id, userId: user.id })
-    }
+
 
     return (
         <>
             <div>
-                <h1>{question.text}</h1>
-                <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
-                <button onClick={() => sendAnswer()}>Envoyer</button>
+                <h1>{question}</h1>
+
+                {/* List the answers possible */}
+                {answers?.map((answer: Answer) => (
+                    <div key={answer.id}>
+                        <button onClick={() => onAnswer(answer)}>{answer.text}</button>
+                    </div>
+                ))}
             </div>
         </>
     )
