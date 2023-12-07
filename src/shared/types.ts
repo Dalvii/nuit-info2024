@@ -3,3 +3,15 @@ export type Player = {
     pseudo: string;
     score: number;
 }
+
+export interface Answer {
+    id: number;
+    text: string;
+    color: string;
+}
+
+export type QuestionType = {
+    id: number
+    text?: string;
+    answers?: Answer[];
+}

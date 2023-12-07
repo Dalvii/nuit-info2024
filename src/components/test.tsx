@@ -6,8 +6,8 @@ import { Player } from '../shared/types';
 
 
 
-socketService.on('starting', (listPlayer: Player[]) => {
-    console.log(question)
+socketService.questionEvent((e:string) => {
+    console.log(e)
 })
 
 interface Answer {
