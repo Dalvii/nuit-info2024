@@ -13,7 +13,7 @@ import logo from './assets/logo.svg';
 function App() {
 	const [pseudo, setPseudo] = useState('')
 	const [listPlayer, setListPlayer] = useState<Player[]>([])
-	const [isLogged, setIsLogged] = useState(true)
+	const [isLogged, setIsLogged] = useState(false)
 
 	const [questionOrAnswer, setQuestionOrAnswer] = useState('question')
 	const [trueAnswer, setTrueAnswer] = useState<number | null>(null)
@@ -45,6 +45,12 @@ function App() {
 		})
 	}
 
+	function createGame() {
+		socket.createGame(pseudo);
+		socket.gameCreatedEvent((gameId) => {
+			setIsLogged(true)
+		})
+	}
 	function sendAnswer(answer: Answer) {
 		socket.sendAnswer('' + answer.id);
 
@@ -66,12 +72,12 @@ function App() {
 
 	return (
 		<div>
+			<img className='logo' src={logo} alt="logo" />
 			{isLogged == true ? (
 				<>
 
 					{currentQuestion ? (
 						<>
-							<img className='logo' src={logo} alt="logo" />
 							<Timer initialValue={currentQuestion.time} />
 							<Question
 								id={currentQuestion.id}
@@ -87,7 +93,7 @@ function App() {
 					)}
 				</>
 
-			) : <Login join={() => login()} pseudo={pseudo} setPseudo={setPseudo} />}
+			) : <Login createGame={()=> createGame()} join={() => login()} pseudo={pseudo} setPseudo={setPseudo} />}
 		</div>
 	)
 }

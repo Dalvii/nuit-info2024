@@ -38,6 +38,14 @@ class SocketService {
     public sendAnswer(answer: string) {
         this.socket.emit('sendAnswer', answer);
     }
+    public createGame(pseudo:string) {
+        this.socket.emit('create_game',pseudo);
+    }
+    public gameCreatedEvent(callback: (gameId: string) => void) {
+        this.socket.on('game_created', (gameId: string) => {
+            callback(gameId);
+        });
+    }
 
     public join(pseudo: Player['pseudo']) {
         this.socket.emit('join', pseudo);

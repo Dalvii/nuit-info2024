@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { QuestionType } from "../shared/types";
-import logo from "../assets/logo.svg";
 interface Answer {
     id: number;
     text: string;
