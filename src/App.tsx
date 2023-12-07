@@ -7,6 +7,8 @@ import { Login } from './components/Login'
 import { Player } from './shared/types'
 import socket from './socket'
 import Timer from './components/Timer'
+import logo from './assets/logo.svg';
+
 
 function App() {
 	const [pseudo, setPseudo] = useState('')
@@ -25,13 +27,13 @@ function App() {
 			question: "Question 1",
 			trueAnswer: null,
 			answers: [{
-				id: 1, text: "Reponse 1", color: "jaune"
+				id: 1, text: "Reponse 1"
 			}, {
-				id: 2, text: "Reponse 2", color: "rouge"
+				id: 2, text: "Reponse 2"
 			}, {
-				id: 3, text: "Reponse 3", color: "bleu"
+				id: 3, text: "Reponse 3"
 			}, {
-				id: 4, text: "Reponse 4", color: "vert"
+				id: 4, text: "Reponse 4"
 			}]
 		})
 	}, [])
@@ -69,6 +71,7 @@ function App() {
 
 					{currentQuestion ? (
 						<>
+							<img className='logo' src={logo} alt="logo" />
 							<Timer initialValue={currentQuestion.time} />
 							<Question
 								id={currentQuestion.id}

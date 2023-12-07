@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { QuestionType } from "../shared/types";
-
+import logo from "../assets/logo.svg";
 interface Answer {
     id: number;
     text: string;
-    color: string;
 }
 
 type Props = {
@@ -17,23 +16,21 @@ const Question = ({ question, answers, trueAnswer, onAnswer }: Props) => {
 
     return (
         <>
-            <div>
+            <div className="question">
                 <h1>{question}</h1>
-                {answers?.map((answer: Answer) => (
-                    <div key={answer.id}>
-                        <button
-                            disabled={selected != null} // Disable the button if it's already selected
-                            style={{ backgroundColor: answer.color }}
-                            className={selected === answer.id ? trueAnswer == answer.id ? "correct" : "selected" : ""}
-                            onClick={() => {
-                                onAnswer(answer);
-                                setSelected(answer.id);
-                            }}
-                        >
-                            {answer.text}
-                        </button>
-                    </div>
-                ))}
+                <div className="listAnswer">
+                    {answers?.map((answer: Answer) => (
+                            <button
+                                disabled={selected != null} // Disable the button if it's already selected
+                                className={`${trueAnswer == answer.id ? "correct" : selected === answer.id ? "selected" : ""} answer`}
+                                onClick={() => {
+                                    onAnswer(answer);
+                                    setSelected(answer.id);
+                                }}
+                            >
+                                {answer.text}
+                            </button>
+                    ))}</div>
             </div>
         </>
     );
