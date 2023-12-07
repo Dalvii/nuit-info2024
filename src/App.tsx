@@ -16,7 +16,7 @@ function App() {
 	return (
 		<div>
 			{questiontest == true ?
-				<Question id={0} text={''} answers={[]} />
+				<Question id={0} text={'Test Question'} answers={[]} />
 				:
 				<>
 					<h1>Quiz multijoueur</h1>
