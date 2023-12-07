@@ -20,8 +20,9 @@ function App() {
 
 	useEffect(() => {
 		setCurrentQuestion({
+			time: 10,
 			id: 1,
-			text: "Question 1",
+			question: "Question 1",
 			answers: [{
 				id: 1, text: "Reponse 1", color: "jaune"
 			}, {
@@ -76,8 +77,6 @@ function App() {
 				:
 				<Login join={() => login()} pseudo={pseudo} setPseudo={setPseudo} />
 			}
-
-
 		</div>
 	)
 }

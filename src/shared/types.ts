@@ -11,7 +11,8 @@ export interface Answer {
 }
 
 export type QuestionType = {
-    id: number
-    text?: string;
-    answers?: Answer[];
+    id: number;
+    time?: number;
+    question: string;
+    answers: Answer[];
 }
