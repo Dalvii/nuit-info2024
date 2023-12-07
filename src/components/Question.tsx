@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { QuestionType } from "../shared/types";
 
 interface Answer {
@@ -11,19 +12,31 @@ type Props = {
 } & QuestionType;
 
 
-const Question = ({ question,answers, onAnswer }: Props) => {
+const Question = ({ question, answers, trueAnswer, onAnswer }: Props) => {
+    const [selected, setSelected] = useState<number | null>(null);
+
     return (
         <>
             <div>
                 <h1>{question}</h1>
                 {answers?.map((answer: Answer) => (
                     <div key={answer.id}>
-                        <button onClick={() => onAnswer(answer)}>{answer.text}</button>
+                        <button
+                            disabled={selected != null} // Disable the button if it's already selected
+                            style={{ backgroundColor: answer.color }}
+                            className={selected === answer.id ? trueAnswer == answer.id ? "correct" : "selected" : ""}
+                            onClick={() => {
+                                onAnswer(answer);
+                                setSelected(answer.id);
+                            }}
+                        >
+                            {answer.text}
+                        </button>
                     </div>
                 ))}
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Question

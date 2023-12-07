@@ -6,11 +6,18 @@ const URL = process.env.NODE_ENV === 'production' ? 'http://localhost:4000' : 'h
 
 const socket = io(URL);
 
-interface SendAnswerPayload {
-    pseudo: string;
-    answer: string;
-    gameId: string;
-    userId: string;
+
+/*
+{
+  game_joined: {
+    id: id_game,
+    players: [blabla, blabla]
+   } 
+}
+*/
+interface JoinEventPayload {
+    id: string;
+    players: Player[];
 }
 
 class SocketService {
@@ -36,8 +43,11 @@ class SocketService {
         this.socket.emit('join', pseudo);
     }
 
-    public joinEvent(callback: (...args: any[]) => void) {
-        this.socket.on('joinEvent', callback);
+    public joinEvent(callback: (data: JoinEventPayload) => void) {
+        this.socket.on('joinEvent', (json: string) => {
+            const data = JSON.parse(json);
+            callback(data);
+        });
     }
 
     public startGame() {

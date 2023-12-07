@@ -15,4 +15,5 @@ export type QuestionType = {
     time: number;
     question: string;
     answers: Answer[];
+    trueAnswer: number | null;
 }

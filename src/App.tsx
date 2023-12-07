@@ -14,7 +14,7 @@ function App() {
 	const [isLogged, setIsLogged] = useState(true)
 
 	const [questionOrAnswer, setQuestionOrAnswer] = useState('question')
-	const [trueAnswer, setTrueAnswer] = useState('')
+	const [trueAnswer, setTrueAnswer] = useState<number | null>(null)
 	const [currentQuestion, setCurrentQuestion] = useState<QuestionType | null>(null)
 
 
@@ -23,6 +23,7 @@ function App() {
 			time: 10,
 			id: 1,
 			question: "Question 1",
+			trueAnswer: null,
 			answers: [{
 				id: 1, text: "Reponse 1", color: "jaune"
 			}, {
@@ -43,7 +44,6 @@ function App() {
 	}
 
 	function sendAnswer(answer: Answer) {
-		setCurrentQuestion(null)
 		socket.sendAnswer('' + answer.id);
 
 	}
@@ -52,9 +52,10 @@ function App() {
 		socket.questionEvent((question: QuestionType) => {
 			setQuestionOrAnswer('question')
 			setCurrentQuestion(question)
+			setTrueAnswer(null)
 		})
 
-		socket.answerEvent((answer: string) => {
+		socket.answerEvent((answer: number) => {
 			setQuestionOrAnswer('answer')
 			setTrueAnswer(answer)
 		})
@@ -64,29 +65,29 @@ function App() {
 	return (
 		<div>
 			{isLogged == true ? (
-				questionOrAnswer == 'question' ? (
-					<>
-						{currentQuestion ? (
-							<>
-								<Timer initialValue={currentQuestion.time} />
-								<Question
-									id={0}
-									question={'Test Question'}
-									answers={currentQuestion.answers}
-									time={currentQuestion.time}
-									onAnswer={sendAnswer}
-								/>
-							</>
-						) : (
-							<h1>En attente de la prochaine question</h1>
-						)}
-					</>
-				) : (
-					<p>{trueAnswer}</p>
-				)
+				<>
+
+					{currentQuestion ? (
+						<>
+							<Timer initialValue={currentQuestion.time} />
+							<Question
+								id={currentQuestion.id}
+								question={'Test Question'}
+								answers={currentQuestion.answers}
+								time={currentQuestion.time}
+								trueAnswer={trueAnswer}
+								onAnswer={sendAnswer}
+							/>
+						</>
+					) : (
+						<h1>En attente de la prochaine question</h1>
+					)}
+				</>
+
 			) : <Login join={() => login()} pseudo={pseudo} setPseudo={setPseudo} />}
 		</div>
 	)
 }
+
 
 export default App
