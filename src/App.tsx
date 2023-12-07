@@ -13,6 +13,8 @@ function App() {
 	const [listPlayer, setListPlayer] = useState<Player[]>([])
 	const [isLogged, setIsLogged] = useState(false)
 
+	const [questionOrAnswer, setQuestionOrAnswer] = useState('question')
+	const [trueAnswer, setTrueAnswer] = useState('')
 	const [currentQuestion, setCurrentQuestion] = useState<QuestionType | null>(null)
 
 
@@ -39,33 +41,43 @@ function App() {
 		})
 	}
 
-	function answer(answer: Answer) {
-		socket.sendAnswer(''+answer.id);
+	function sendAnswer(answer: Answer) {
+		socket.sendAnswer('' + answer.id);
 	}
 
 	if (isLogged == true) {
 		socket.questionEvent((question: QuestionType) => {
+			setQuestionOrAnswer('question')
 			setCurrentQuestion(question)
 		})
 
-		socket.timerEvent((time: number) => {
-
+		socket.answerEvent((answer: string) => {
+			setQuestionOrAnswer('answer')
+			setTrueAnswer(answer)
 		})
 	}
 
 
 	return (
 		<div>
-			<Timer />
-			{isLogged == false ?
-				(currentQuestion && currentQuestion.answers ? 
-					<Question id={0} question={'Test Question'} answers={currentQuestion.answers} onAnswer={answer} />
+			{isLogged == true ?
+				(questionOrAnswer == 'question' ?
+					<>
+						<Timer />
+						{currentQuestion && currentQuestion.answers ?
+							<Question id={0} question={'Test Question'} answers={currentQuestion.answers} onAnswer={sendAnswer} />
+							:
+							<h1>En attente de la prochaine question</h1>
+						}
+					</>
 					:
-					<h1>En attente de la prochaine question</h1>
+					<p>{trueAnswer}</p>
 				)
 				:
 				<Login join={() => login()} pseudo={pseudo} setPseudo={setPseudo} />
 			}
+
+
 		</div>
 	)
 }
