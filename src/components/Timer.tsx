@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-const Timer: React.FC = () => {
+const Timer = () => {
     const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {
@@ -11,7 +11,7 @@ const Timer: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
 
-    return <div>{seconds} secondes</div>;
+    return <div>{seconds} s</div>;
 };
 
 export default Timer;

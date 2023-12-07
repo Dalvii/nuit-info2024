@@ -6,6 +6,7 @@ import { QuestionType, Answer } from './shared/types'
 import { Login } from './components/Login'
 import { Player } from './shared/types'
 import socket from './socket'
+import Timer from './components/Timer'
 
 function App() {
 	const [pseudo, setPseudo] = useState('')
@@ -55,6 +56,7 @@ function App() {
 
 	return (
 		<div>
+			<Timer />
 			{isLogged == false ?
 				(currentQuestion && currentQuestion.answers ? 
 					<Question id={0} question={'Test Question'} answers={currentQuestion.answers} onAnswer={answer} />
