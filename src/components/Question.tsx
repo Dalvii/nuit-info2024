@@ -1,6 +1,3 @@
-import React, { useState } from 'react'
-
-
 interface Answer {
     id: number;
     text: string;

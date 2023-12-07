@@ -11,7 +11,6 @@ function App() {
 	const [listPlayer, setListPlayer] = useState<Player[]>([])
 	const [isLogged, setIsLogged] = useState(false)
 
-	const questiontest = true;
 
 	function login() {
 		socket.join(pseudo);
