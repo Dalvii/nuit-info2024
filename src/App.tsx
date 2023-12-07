@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 import Question from './components/Question'
@@ -14,6 +14,23 @@ function App() {
 
 	const [currentQuestion, setCurrentQuestion] = useState<QuestionType | null>(null)
 
+
+	useEffect(() => {
+		setCurrentQuestion({
+			id: 1,
+			text: "Question 1",
+			answers: [{
+				id: 1, text: "Reponse 1", color: "jaune"
+			}, {
+				id: 2, text: "Reponse 2", color: "rouge"
+			}, {
+				id: 3, text: "Reponse 3", color: "bleu"
+			}, {
+				id: 4, text: "Reponse 4", color: "vert"
+			}]
+		})
+	}, [])
+
 	function login() {
 		socket.join(pseudo);
 		socket.joinEvent((pseudo) => {
@@ -21,38 +38,29 @@ function App() {
 		})
 	}
 
-	function answer() {
-		console.log("answer")	
+	function answer(answer: Answer) {
+		socket.sendAnswer(''+answer.id);
 	}
-	
-	const listAnswers = [{
-		id: 1, text: "Reponse 1", color: "jaune"
-	}, {
-		id: 2, text: "Reponse 2", color: "rouge"
-	}, {
-		id: 3, text: "Reponse 3", color: "bleu"
-	}, {
-		id: 4, text: "Reponse 4", color: "vert"
-	}];
-
 
 	if (isLogged == true) {
-		socket.questionEvent((question: string) => {
-			setListPlayer(players)
+		socket.questionEvent((question: QuestionType) => {
+			setCurrentQuestion(question)
+		})
+
+		socket.timerEvent((time: number) => {
+
 		})
 	}
 
 
 	return (
 		<div>
-
-			{isLogged == true ?
-				(currentQuestion != null ? 
-					<Question id={0} question={'Test Question'} answers={listAnswers} onAnswer={answer} />
+			{isLogged == false ?
+				(currentQuestion && currentQuestion.answers ? 
+					<Question id={0} question={'Test Question'} answers={currentQuestion.answers} onAnswer={answer} />
 					:
 					<h1>En attente de la prochaine question</h1>
 				)
-				// <Question id={0} text={'Test Question'} answers={[]} />
 				:
 				<Login join={() => login()} pseudo={pseudo} setPseudo={setPseudo} />
 			}
