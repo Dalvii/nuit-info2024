@@ -2,7 +2,7 @@ import { io, Socket } from 'socket.io-client';
 import { Player } from './shared/types';
 
 // "undefined" means the URL will be computed from the `window.location` object
-const URL = process.env.NODE_ENV === 'production' ? 'http://localhost:4000' : 'http://localhost:4000';
+const URL = process.env.NODE_ENV === 'production' ? 'http://localhost:4000' : 'https://7130-134-59-155-253.ngrok-free.app';
 
 const socket = io(URL);
 
@@ -39,10 +39,11 @@ class SocketService {
         this.socket.emit('sendAnswer', answer);
     }
     public createGame(pseudo:string) {
-        this.socket.emit('create_game',pseudo);
+        this.socket.emit('create_game',{pseudo:pseudo});
     }
     public gameCreatedEvent(callback: (gameId: string) => void) {
         this.socket.on('game_created', (gameId: string) => {
+            console.log("game created socket");
             callback(gameId);
         });
     }
