@@ -12,7 +12,7 @@ export interface Answer {
 
 export type QuestionType = {
     id: number;
-    time?: number;
+    time: number;
     question: string;
     answers: Answer[];
 }

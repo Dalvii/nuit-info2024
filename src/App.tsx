@@ -11,7 +11,7 @@ import Timer from './components/Timer'
 function App() {
 	const [pseudo, setPseudo] = useState('')
 	const [listPlayer, setListPlayer] = useState<Player[]>([])
-	const [isLogged, setIsLogged] = useState(false)
+	const [isLogged, setIsLogged] = useState(true)
 
 	const [questionOrAnswer, setQuestionOrAnswer] = useState('question')
 	const [trueAnswer, setTrueAnswer] = useState('')
@@ -43,7 +43,9 @@ function App() {
 	}
 
 	function sendAnswer(answer: Answer) {
+		setCurrentQuestion(null)
 		socket.sendAnswer('' + answer.id);
+
 	}
 
 	if (isLogged == true) {
@@ -61,22 +63,28 @@ function App() {
 
 	return (
 		<div>
-			{isLogged == true ?
-				(questionOrAnswer == 'question' ?
+			{isLogged == true ? (
+				questionOrAnswer == 'question' ? (
 					<>
-						<Timer />
-						{currentQuestion && currentQuestion.answers ?
-							<Question id={0} question={'Test Question'} answers={currentQuestion.answers} onAnswer={sendAnswer} />
-							:
+						{currentQuestion ? (
+							<>
+								<Timer initialValue={currentQuestion.time} />
+								<Question
+									id={0}
+									question={'Test Question'}
+									answers={currentQuestion.answers}
+									time={currentQuestion.time}
+									onAnswer={sendAnswer}
+								/>
+							</>
+						) : (
 							<h1>En attente de la prochaine question</h1>
-						}
+						)}
 					</>
-					:
+				) : (
 					<p>{trueAnswer}</p>
 				)
-				:
-				<Login join={() => login()} pseudo={pseudo} setPseudo={setPseudo} />
-			}
+			) : <Login join={() => login()} pseudo={pseudo} setPseudo={setPseudo} />}
 		</div>
 	)
 }
