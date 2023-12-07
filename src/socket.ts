@@ -1,4 +1,5 @@
 import { io, Socket } from 'socket.io-client';
+import { Player } from './shared/types';
 
 // "undefined" means the URL will be computed from the `window.location` object
 const URL = process.env.NODE_ENV === 'production' ? 'http://localhost:4000' : 'http://localhost:4000';
@@ -19,12 +20,24 @@ class SocketService {
         this.socket = socket;
     }
 
-    public on(event: string, callback: (...args: any[]) => void) {
-        this.socket.on(event, callback);
+    public questionEvent(callback: (...args: any[]) => void) {
+        this.socket.on('question', callback);
     }
 
-    public sendAnswer(payload: SendAnswerPayload) {
-        this.socket.emit('sendAnswer', payload);
+    public sendAnswer(answer: string) {
+        this.socket.emit('sendAnswer', answer);
+    }
+
+    public join(pseudo: Player['pseudo']) {
+        this.socket.emit('join', pseudo);
+    }
+
+    public joinEvent(callback: (...args: any[]) => void) {
+        this.socket.on('joinEvent', callback);
+    }
+
+    public startGame() {
+        this.socket.emit('startGame');
     }
 }
 

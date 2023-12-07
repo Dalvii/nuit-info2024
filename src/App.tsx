@@ -2,28 +2,29 @@ import { useState } from 'react'
 import './App.css'
 
 import Question from './components/Question'
+import { Login } from './components/Login'
+import { Player } from './shared/types'
+import socket from './socket'
 
 function App() {
 	const [pseudo, setPseudo] = useState('')
-	// const [isLogged, setIsLogged] = useState(false)
+	const [listPlayer, setListPlayer] = useState<Player[]>([])
+	const [isLogged, setIsLogged] = useState(false)
 
-	const questiontest = true
 
 	function login() {
-		// setIsLogged(true)
+		socket.join(pseudo);
+		socket.joinEvent((pseudo) => {
+			setIsLogged(true)
+		})
 	}
 
 	return (
 		<div>
-			{questiontest == true ?
+			{isLogged == true ?
 				<Question id={0} text={'Test Question'} answers={[]} />
 				:
-				<>
-					<h1>Quiz multijoueur</h1>
-					<input type="text" value={pseudo} onChange={(e) => setPseudo(e.target.value)} />
-					<p>{pseudo}</p>
-					<button onClick={() => login()}>Entrer</button>
-				</>
+				<Login join={() => login()} pseudo={pseudo} setPseudo={setPseudo} />
 			}
 		</div>
 	)

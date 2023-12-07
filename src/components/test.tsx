@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 
 
 import socketService from '../socket';
+import { Player } from '../shared/types';
 
 
 
-socketService.on('starting', (listPlayer: string) => {
+socketService.on('starting', (listPlayer: Player[]) => {
     console.log(question)
 })
 
