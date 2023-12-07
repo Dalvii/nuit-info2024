@@ -21,7 +21,11 @@ class SocketService {
     }
 
     public questionEvent(callback: (...args: any[]) => void) {
-        this.socket.on('question', callback);
+        this.socket.on('questionEvent', callback);
+    }
+
+    public timerEvent(callback: (...args: any[]) => void) {
+        this.socket.on('timerEvent', callback);
     }
 
     public sendAnswer(answer: string) {
