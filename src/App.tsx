@@ -4,7 +4,6 @@ import "./App.css";
 import Question from "./components/Question";
 import { QuestionType, Answer } from "./shared/types";
 import { Login } from "./components/Login";
-import { Player } from "./shared/types";
 import socket from "./socket";
 import Timer from "./components/Timer";
 import logo from "./assets/logo.svg";
@@ -12,9 +11,7 @@ import { Attente } from "./components/Attente";
 
 function App() {
     const [pseudo, setPseudo] = useState("");
-    const [listPlayer, setListPlayer] = useState<Player[]>([]);
     const [isLogged, setIsLogged] = useState(false);
-    const [questionOrAnswer, setQuestionOrAnswer] = useState("question");
     const [trueAnswer, setTrueAnswer] = useState<number | null>(null);
     const [currentQuestion, setCurrentQuestion] = useState<QuestionType | null>(
         null
@@ -83,13 +80,11 @@ function App() {
 			socket.questionEvent((question: QuestionType) => {
 				console.log("questionEvent");
 				setGameStarted(true);
-				setQuestionOrAnswer("question");
 				setCurrentQuestion(question);
 				setTrueAnswer(null);
 			});
 	
 			socket.answerEvent((answer: number) => {
-				setQuestionOrAnswer("answer");
 				setTrueAnswer(answer);
 			});
 		}
