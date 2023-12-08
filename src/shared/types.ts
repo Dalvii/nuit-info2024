@@ -16,3 +16,8 @@ export type QuestionType = {
     answers: Answer[];
     trueAnswer: number | null;
 }
+
+export type joinedGame = {
+    id: string,
+    players: string
+}

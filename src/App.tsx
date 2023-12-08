@@ -8,6 +8,7 @@ import { Player } from "./shared/types";
 import socket from "./socket";
 import Timer from "./components/Timer";
 import logo from "./assets/logo.svg";
+import { Attente } from "./components/Attente";
 
 function App() {
     const [pseudo, setPseudo] = useState("");
@@ -18,77 +19,91 @@ function App() {
     const [currentQuestion, setCurrentQuestion] = useState<QuestionType | null>(
         null
     );
+    const [isGameStarted, setGameStarted] = useState<boolean>(false);
+
 
     const [partyCode, setPartyCode] = useState("");
 
-    useEffect(() => {
-        setCurrentQuestion({
-            time: 10,
-            id: 1,
-            question: "Question 1",
-            trueAnswer: null,
-            answers: [
-                {
-                    id: 1,
-                    text: "Reponse 1",
-                },
-                {
-                    id: 2,
-                    text: "Reponse 2",
-                },
-                {
-                    id: 3,
-                    text: "Reponse 3",
-                },
-                {
-                    id: 4,
-                    text: "Reponse 4",
-                },
-            ],
-        });
-    }, []);
+    // useEffect(() => {
+    //     setCurrentQuestion({
+    //         time: 10,
+    //         id: 1,
+    //         question: "Question 1",
+    //         trueAnswer: null,
+    //         answers: [
+    //             {
+    //                 id: 1,
+    //                 text: "Reponse 1",
+    //             },
+    //             {
+    //                 id: 2,
+    //                 text: "Reponse 2",
+    //             },
+    //             {
+    //                 id: 3,
+    //                 text: "Reponse 3",
+    //             },
+    //             {
+    //                 id: 4,
+    //                 text: "Reponse 4",
+    //             },
+    //         ],
+    //     });
+    // }, []);
 
     function login() {
-        socket.join(pseudo);
+        socket.join(pseudo, partyCode);
         socket.joinEvent((pseudo) => {
+			console.log(pseudo);
             setIsLogged(true);
         });
     }
 
     function createGame() {
         socket.createGame(pseudo);
-		console.log("createGame");
 		
-        socket.gameCreatedEvent((gameId) => {
+        socket.gameCreatedEvent((data) => {
 			console.log("gameCreatedEvent");
+			console.log(data);
 			
-            setPartyCode(gameId);
+            setPartyCode(data.id_game);
         });
     }
     function sendAnswer(answer: Answer) {
         socket.sendAnswer("" + answer.id);
     }
 
-    if (isLogged == true) {
-        socket.questionEvent((question: QuestionType) => {
-            setQuestionOrAnswer("question");
-            setCurrentQuestion(question);
-            setTrueAnswer(null);
-        });
+	function startGame() {
+		socket.startGame(partyCode);
+		setGameStarted(true);
+	}
 
-        socket.answerEvent((answer: number) => {
-            setQuestionOrAnswer("answer");
-            setTrueAnswer(answer);
-        });
-    }
+	useEffect(() => {
+		if (isLogged == true) {
+			socket.questionEvent((question: QuestionType) => {
+				console.log("questionEvent");
+				console.log(question);
+				setQuestionOrAnswer("question");
+				setCurrentQuestion(question);
+				setTrueAnswer(null);
+			});
+	
+			socket.answerEvent((answer: number) => {
+				setQuestionOrAnswer("answer");
+				setTrueAnswer(answer);
+			});
+		}
+	}, [isLogged])
 
     return (
         <div>
             <img className="logo" src={logo} alt="logo" />
             {isLogged == true ? (
                 <>
-                    {currentQuestion ? (
+					{isGameStarted ? (
                         <>
+                            {currentQuestion ? (
+						<>
                             <Timer initialValue={currentQuestion.time} />
                             <Question
                                 id={currentQuestion.id}
@@ -102,6 +117,11 @@ function App() {
                     ) : (
                         <h1>En attente de la prochaine question</h1>
                     )}
+                        </>
+                    ) : (
+                        <Attente start={startGame} />
+                    )}
+                    
                 </>
             ) : (
                 <Login
