@@ -102,6 +102,11 @@ transition: all 0.5s ease-in-out;
   background-color: #93939b;
   color: white;
 }
+
+.answer.correct{
+  background-color: rgb(0, 150, 20);
+  color: white;
+}
 @media (min-width: 768px) {
   #root>div{
     margin-bottom: 10%;

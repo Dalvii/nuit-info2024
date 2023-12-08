@@ -82,7 +82,7 @@ function App() {
 		if (isLogged == true) {
 			socket.questionEvent((question: QuestionType) => {
 				console.log("questionEvent");
-				console.log(question);
+				setGameStarted(true);
 				setQuestionOrAnswer("question");
 				setCurrentQuestion(question);
 				setTrueAnswer(null);
@@ -107,7 +107,7 @@ function App() {
                             <Timer initialValue={currentQuestion.time} />
                             <Question
                                 id={currentQuestion.id}
-                                question={"Test Question"}
+                                question={currentQuestion.question}
                                 answers={currentQuestion.answers}
                                 time={currentQuestion.time}
                                 trueAnswer={trueAnswer}
