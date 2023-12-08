@@ -1,0 +1,122 @@
+{
+    "1":
+    {
+        "question" : "Quel gaz est le principal responsable du dérèglement climatique ?",
+        "answers":[
+            "Oxygène",
+            "Azote",
+            "Dioxyde de carbone",
+            "Hélium"
+        ],
+        "good_answers":3,
+        "fact" : "Le dioxyde de carbone est le principal gaz à effet de serre émis par les activités humaines, notamment la combustion de combustibles fossiles et la déforestation."
+    },
+    "2":
+    {
+        "question" : "Quel phénomène naturel contribue à l'augmentation du niveau de la mer ?",
+        "answers":[
+            "La photosynthèse",
+            "La fonte des glaces",
+            "La croissance des plantes",
+            "L'érosion des sols"
+        ],
+        "good_answers":2,
+        "fact" : "La fonte des glaces, en particulier des calottes glaciaires et des glaciers, contribue à l'élévation du niveau de la mer en ajoutant de l'eau douce dans les océans."
+    },
+    "3":
+    {
+        "question" : "Quel secteur est le plus grand émetteur de gaz à effet de serre ?",
+        "answers":[
+            "Le transport",
+            "L'agriculture",
+            "L'industrie",
+            "Les ménages"
+        ],
+        "good_answers":3,
+        "fact" : "L'industrie est le plus grand émetteur de gaz à effet de serre, en raison de la combustion de combustibles fossiles pour l'énergie et des processus industriels tels que la production de ciment."
+    },
+    "4":
+    {
+        "question" : "Quel pays est le plus grand émetteur de CO2 ?",
+        "answers":[
+            "Les États-Unis",
+            "La Chine",
+            "L'Inde",
+            "La Russie"
+        ],
+        "good_answers":2,
+        "fact" : "La Chine est actuellement le plus grand émetteur de dioxyde de carbone, principalement en raison de sa consommation de charbon pour la production d'électricité et la fabrication industrielle."
+    },
+    "5":
+    {
+        "question" : "Quel est l'impact du dérèglement climatique sur la biodiversité ?",
+        "answers":[
+            "Augmentation de la biodiversité",
+            "Diminution de la biodiversité",
+            "Pas d'impact",
+            "Augmentation de certaines espèces, diminution d'autres"
+        ],
+        "good_answers":2,
+        "fact" : "Le dérèglement climatique a un impact négatif sur la biodiversité. Les changements de température et de précipitations, ainsi que l'augmentation des événements climatiques extrêmes, peuvent perturber les écosystèmes et entraîner la disparition d'espèces."
+    },
+    "6":
+    {
+        "question" : "Qu'est-ce que l'Accord de Paris ?",
+        "answers":[
+            "Un traité sur le commerce international",
+            "Un accord sur la réduction des émissions de gaz à effet de serre",
+            "Un accord sur la protection des espèces en voie de disparition",
+            "Un traité sur la protection des océans"
+        ],
+        "good_answers":2,
+        "fact" : "L'Accord de Paris est un accord international visant à limiter le réchauffement climatique en réduisant les émissions de gaz à effet de serre. Il a été adopté en 2015 lors de la COP21 à Paris."
+    },
+    "7":
+    {
+        "question" : "Qu'est-ce que l'empreinte carbone ?",
+        "answers":[
+            "La quantité de carbone présente dans le sol",
+            "La quantité de carbone émise par une personne ou une organisation",
+            "La quantité de carbone présente dans l'atmosphère",
+            "La quantité de carbone présente dans l'eau"
+        ],
+        "good_answers":2,
+        "fact" : "L'empreinte carbone est une mesure de la quantité totale de gaz à effet de serre, exprimée en équivalent CO2, émise par une personne, une organisation ou un produit, directement ou indirectement."
+    },
+    "8":
+    {
+        "question" : "Qu'est-ce que l'effet de serre ?",
+        "answers":[
+            "Un processus qui refroidit la Terre",
+            "Un processus qui réchauffe la Terre",
+            "Un processus qui diminue la quantité de CO2 dans l'atmosphère",
+            "Un processus qui augmente la quantité d'oxygène dans l'atmosphère"
+        ],
+        "good_answers":2,
+        "fact" : "L'effet de serre est un processus naturel qui permet à la Terre de maintenir une température habitable. Il est causé par certains gaz présents dans l'atmosphère, comme le dioxyde de carbone, qui absorbent une partie de l'énergie solaire réfléchie par la surface de la Terre et la renvoient sous forme de chaleur."
+    },
+    "9":
+    {
+        "question" : "Quelle est la principale source d'énergie renouvelable utilisée dans le monde ?",
+        "answers":[
+            "L'énergie solaire",
+            "L'énergie éolienne",
+            "L'énergie hydraulique",
+            "L'énergie nucléaire"
+        ],
+        "good_answers":3,
+        "fact" : "L'énergie hydraulique, ou hydroélectricité, est la source d'énergie renouvelable la plus utilisée dans le monde. Elle est produite en convertissant l'énergie potentielle de l'eau en électricité."
+    },
+    "10":
+    {
+        "question" : "Quel est l'impact du dérèglement climatique sur les événements météorologiques extrêmes ?",
+        "answers":[
+            "Augmentation de la fréquence et de l'intensité",
+            "Diminution de la fréquence et de l'intensité",
+            "Pas d'impact",
+            "Augmentation de la fréquence, diminution de l'intensité"
+        ],
+        "good_answers":1,
+        "fact" : "Le dérèglement climatique est susceptible d'augmenter la fréquence et l'intensité des événements météorologiques extrêmes, tels que les tempêtes, les inondations et les vagues de chaleur."
+    }
+}
